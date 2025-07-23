@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="listbox">
+    <ul>
+      <li [ngClass]="{'selected': selected === item}" *ngFor="let item of data" (click)="onSelect(item)">
+        {{ item.SamplingTime | date:'dd-MM-yyyy HH:mm:ss a' }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="details" *ngIf="form">
+   <form [formGroup]="form">
+  <div *ngFor="let prop of selectedProperties">
+    <label>{{ prop.Label }}</label>
+
+    <input *ngIf="isTextField(prop.Value)" type="text" [formControlName]="prop.Label">
+
+    <input *ngIf="isNumberField(prop.Value)" type="number" [formControlName]="prop.Label">
+
+    <input *ngIf="isBooleanField(prop.Value)" type="checkbox" [formControlName]="prop.Label">
+
+  </div>
+  
+  <button type="button" (click)="onSave()">Save</button>
+
+</form>
+
+  </div>
+</div>
